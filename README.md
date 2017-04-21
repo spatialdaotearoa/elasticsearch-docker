@@ -13,6 +13,12 @@ docker-compose -f docker-compose.dev.yml build
 docker-compose -f docker-compose.dev.yml run
 ```
 
+Test it's working (default password for user `elastic` is `changeme`):
+
+```
+curl -u elastic http://127.0.0.1:9200/_cat/health
+```
+
 ## Notes
 
 - Something I found useful for upgrading `docker-engine` (needs to be ≥1.12.0): https://gist.github.com/indykish/a6facea4748dc578abbaf2b09065ead5

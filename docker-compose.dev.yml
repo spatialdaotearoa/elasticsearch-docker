@@ -1,7 +1,4 @@
-# https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
-version: '2.1' # NOTE: requires Docker >= 1.12.0 (e.g. https://gist.github.com/indykish/a6facea4748dc578abbaf2b09065ead5)
-# NOTE: I also had to upgrade docker-compose (just reinstall using pip after upgrading docker-engine)
-# NOTE: You will probably need to first run `sysctl vm.max_map_count=262144` on the *host*
+version: '2.1'
 services:
   elasticsearch1:
     build: .
