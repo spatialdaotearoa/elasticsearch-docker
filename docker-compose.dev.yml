@@ -1,0 +1,59 @@
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+version: '2.1' # NOTE: requires Docker >= 1.12.0 (e.g. https://gist.github.com/indykish/a6facea4748dc578abbaf2b09065ead5)
+# NOTE: I also had to upgrade docker-compose (just reinstall using pip after upgrading docker-engine)
+# NOTE: You will probably need to first run `sysctl vm.max_map_count=262144` on the *host*
+services:
+  elasticsearch1:
+    build: .
+    container_name: elasticsearch1
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 1g
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - esnet
+  elasticsearch2:
+    build: .
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.zen.ping.unicast.hosts=elasticsearch1"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 1g
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - esdata2:/usr/share/elasticsearch/data
+    networks:
+      - esnet
+
+volumes:
+  esdata1:
+    driver: local
+  esdata2:
+    driver: local
+
+networks:
+  esnet:
+    driver: bridge
