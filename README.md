@@ -1,6 +1,6 @@
 # elasticsearch-docker
 
-Adapted from https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html to use docker-compose v2.1.
+Adapted from https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html to use docker-compose v2.1, and include an image for Kibana.
 
 Note, as per the linked instructions, you will need to ensure your `sysctl` `vm.max_map_count` is at least 262144 on the **host** (i.e. your machine) before starting up:
 
@@ -18,6 +18,8 @@ Test it's working (default password for user `elastic` is `changeme`):
 ```
 curl -u elastic http://127.0.0.1:9200/_cat/health
 ```
+
+With Kibana running too, visit `localhost:5601/` (and `localhost:5601/status`) to interface with Elasticsearch visually.
 
 ## Notes
 
