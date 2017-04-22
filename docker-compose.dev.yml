@@ -46,7 +46,8 @@ services:
       - esnet
   kibana:
     # https://www.elastic.co/guide/en/kibana/current/_configuring_kibana_on_docker.html
-    image: docker.elastic.co/kibana/kibana:5.3.1
+    # image: docker.elastic.co/kibana/kibana:5.3.1
+    build: ./kibana
     volumes:
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml
     ports:
